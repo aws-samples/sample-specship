@@ -1,0 +1,11 @@
+# SpecShip ephemeral state (regenerated each mission)
+state.json
+state.json.tmp
+state.json.bak
+artifacts/traces/
+artifacts/verdicts/
+artifacts/expected-validators.txt
+
+# Keep specs and completed archives tracked
+!specs/
+!completed/

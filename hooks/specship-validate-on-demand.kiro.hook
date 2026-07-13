@@ -1,0 +1,13 @@
+{
+  "enabled": false,
+  "name": "SpecShip · Run validation squad",
+  "description": "Manually-triggered gate that fires the SpecShip validation squad against the current build. Use after a milestone or before shipping so 'validation is mandatory, never skipped' is one click, not a remembered step.",
+  "version": "1",
+  "when": {
+    "type": "userTriggered"
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "Run SpecShip validation now (follow the specship-validate orchestrator). Steps:\n\n1. Derive the applicable validator set from the project shape (code/security/alignment always; integration if full-stack; browser/design if UI; load if there is a perf NFR). Write the derived set to .specship/expected-validators.txt.\n2. Run EACH derived validator as an independent pass — for honesty, a fresh chat or the validator's /specship-validate-<name> slash command. Do not self-evaluate.\n3. Each validator emits its typed verdict JSON to .specship/verdicts/<validator>.json.\n4. Aggregate per specship-validate-aggregate: any NOT_RUN/INCOMPLETE that should have run = BLOCKED; FAIL routes to recover or escalate; all PASS runs the completeness critic, then MERGE.\n\nNever skip a validator in the derived set. You do not have the authority to 'run only the important ones'."
+  }
+}

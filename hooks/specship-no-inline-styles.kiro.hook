@@ -1,0 +1,19 @@
+{
+  "enabled": false,
+  "name": "SpecShip · No inline styles (anti-slop)",
+  "description": "When a UI component file is saved, check for inline styles and browser-default styling — the anti-slop gate from guardrails rule 12. Inline styles in a production build are a bug, same as a SQL injection.",
+  "version": "1",
+  "when": {
+    "type": "fileEdited",
+    "patterns": [
+      "**/*.tsx",
+      "**/*.jsx",
+      "**/*.vue",
+      "**/*.svelte"
+    ]
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "A UI component file was just saved. Enforce SpecShip guardrail #12 (no AI slop):\n\n1. Check the saved file for inline styles (e.g. `style={{ ... }}` in JSX, inline `style=` attributes) and for reliance on raw browser-default styling.\n2. If found, report the exact file:line and flag it — production UI must use the project's design system (Tailwind, shadcn, CSS modules with design tokens), not inline styles.\n3. While you're looking, sanity-check the component covers its states (empty / loading / error / responsive), per guardrail #13.\n\nReport findings with file:line. Do not rewrite the component unasked — surface the issue so it's fixed deliberately."
+  }
+}

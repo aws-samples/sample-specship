@@ -1,0 +1,10 @@
+{
+  "name": "specship-mcp",
+  "version": "0.1.0",
+  "description": "Pinned + integrity-locked MCP servers for SpecShip browser/Lighthouse validation.",
+  "private": true,
+  "dependencies": {
+    "@playwright/mcp": "0.0.75",
+    "chrome-devtools-mcp": "1.1.1"
+  }
+}

@@ -1,0 +1,29 @@
+# OS / editor cruft
+.DS_Store
+*.swp
+*~
+
+# Backups created by install.sh (copy_with_backup) and local merges
+*.bak
+*.merged
+*.tmp
+
+# Node deps from any local MCP-server test install (the shipped lockfile IS tracked)
+node_modules/
+
+# Local-only / do not publish
+*.local
+.env
+.env.*
+!.env.example
+
+# Local comparison/report artifacts
+docs/specship-vs-aidlc-v2-comparison.html
+docs/specship-vs-aidlc-v2-comparison.md
+docs/specship-brownfield-skill-e2e-report.html
+
+# Local editor/tool state
+.gstack/
+
+# Local generated threat-model reports
+.threatmodel/

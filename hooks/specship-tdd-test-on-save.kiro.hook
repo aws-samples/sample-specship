@@ -1,0 +1,26 @@
+{
+  "enabled": false,
+  "name": "SpecShip · TDD test-on-save",
+  "description": "When a source or test file is saved, run the project's test suite and enforce the TDD gate: a newly-added test must have been seen failing (RED) before the code that makes it pass (GREEN). Makes the Iron Law observable instead of self-reported.",
+  "version": "1",
+  "when": {
+    "type": "fileEdited",
+    "patterns": [
+      "**/*.test.*",
+      "**/*.spec.*",
+      "**/test/**",
+      "**/tests/**",
+      "**/__tests__/**",
+      "src/**/*.ts",
+      "src/**/*.tsx",
+      "src/**/*.js",
+      "src/**/*.jsx",
+      "src/**/*.py",
+      "src/**/*.go"
+    ]
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "A source or test file was just saved. Enforce the SpecShip TDD gate (the Iron Law from specship-guardrails rule 6; the red-green-refactor method is the required `tdd` skill from superpowers):\n\n1. Run the project's test command (npm test / pytest / go test — whatever this repo uses).\n2. Report the result concisely: pass/fail counts and any failing test names with their error.\n3. If a NEW test was just added: confirm it was observed FAILING for the right reason before production code made it pass. If you cannot confirm a RED phase happened, say so — a test that was never red proves nothing.\n4. If production code was added with no corresponding failing-first test, flag it as an Iron Law violation.\n\nDo NOT edit code. This is an observation/enforcement pass only — report findings and let the developer act."
+  }
+}

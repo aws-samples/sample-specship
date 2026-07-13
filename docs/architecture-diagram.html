@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SpecShip Architecture</title>
+  <style>
+    html, body {
+      margin: 0;
+      background: #f8fafc;
+      color: #0f172a;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    main {
+      max-width: 1680px;
+      margin: 0 auto;
+      padding: 32px;
+    }
+
+    .diagram {
+      display: block;
+      width: 100%;
+      height: auto;
+      border: 1px solid #e2e8f0;
+      border-radius: 16px;
+      background: #ffffff;
+      box-shadow: 0 20px 64px rgba(15, 23, 42, 0.12);
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <svg class="diagram" xmlns="http://www.w3.org/2000/svg" width="1600" height="960" viewBox="0 0 1600 960" role="img" aria-labelledby="title desc">
+      <title id="title">SpecShip architecture</title>
+      <desc id="desc">Plan, build, validate, recover, and ship workflow with the ship phase called out in a yellow bounding box.</desc>
+      <defs>
+        <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="strokeWidth">
+          <path d="M2,2 L10,6 L2,10 Z" fill="#334155"/>
+        </marker>
+        <marker id="arrowBlue" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="strokeWidth">
+          <path d="M2,2 L10,6 L2,10 Z" fill="#2563eb"/>
+        </marker>
+        <marker id="arrowAmber" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="strokeWidth">
+          <path d="M2,2 L10,6 L2,10 Z" fill="#ca8a04"/>
+        </marker>
+        <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%">
+          <feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#0f172a" flood-opacity="0.12"/>
+        </filter>
+        <style>
+          .bg { fill: #f8fafc; }
+          .title { font: 800 54px Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #0f172a; letter-spacing: 0; }
+          .subtitle { font: 500 23px Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #475569; letter-spacing: 0; }
+          .phase-title { font: 800 24px Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #0f172a; letter-spacing: 0; }
+          .phase-kicker { font: 700 14px Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #64748b; letter-spacing: 0.12em; }
+          .card-title { font: 750 19px Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #0f172a; letter-spacing: 0; }
+          .card-copy { font: 500 15px Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #475569; letter-spacing: 0; }
+          .micro { font: 700 13px Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #64748b; letter-spacing: 0.08em; }
+          .label { font: 750 16px Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #334155; letter-spacing: 0; }
+          .stage { fill: #ffffff; stroke-width: 2; filter: url(#softShadow); }
+          .plan { stroke: #3b82f6; }
+          .build { stroke: #10b981; }
+          .validate { stroke: #6366f1; }
+          .recover { stroke: #ef4444; }
+          .ship { fill: #fffbeb; stroke: #facc15; stroke-width: 5; filter: url(#softShadow); }
+          .ship-inner { fill: #ffffff; stroke: #f59e0b; stroke-width: 2; }
+          .artifact { fill: #f1f5f9; stroke: #94a3b8; stroke-width: 2; }
+          .node { fill: #ffffff; stroke: #cbd5e1; stroke-width: 2; }
+          .node-blue { fill: #eff6ff; stroke: #bfdbfe; stroke-width: 2; }
+          .node-green { fill: #ecfdf5; stroke: #a7f3d0; stroke-width: 2; }
+          .node-indigo { fill: #eef2ff; stroke: #c7d2fe; stroke-width: 2; }
+          .node-red { fill: #fff1f2; stroke: #fecdd3; stroke-width: 2; }
+          .line { fill: none; stroke: #334155; stroke-width: 3; marker-end: url(#arrow); }
+          .line-blue { fill: none; stroke: #2563eb; stroke-width: 3; marker-end: url(#arrowBlue); }
+          .line-amber { fill: none; stroke: #ca8a04; stroke-width: 4; marker-end: url(#arrowAmber); }
+          .loop { fill: none; stroke: #ef4444; stroke-width: 3; stroke-dasharray: 9 8; marker-end: url(#arrow); }
+          .divider { stroke: #e2e8f0; stroke-width: 2; }
+        </style>
+      </defs>
+
+      <rect class="bg" width="1600" height="960"/>
+
+      <text class="title" x="80" y="90">SpecShip Architecture</text>
+      <text class="subtitle" x="82" y="128">A spec-driven agent workflow: plan the contract, build with gates, validate independently, recover when needed, then ship.</text>
+
+      <g transform="translate(80 178)">
+        <rect class="stage plan" x="0" y="0" width="340" height="456" rx="22"/>
+        <text class="phase-kicker" x="28" y="44">01</text>
+        <text class="phase-title" x="28" y="78">Plan</text>
+        <text class="card-copy" x="28" y="108">Sequential discovery and contract work.</text>
+
+        <g transform="translate(28 136)">
+          <rect class="node-blue" x="0" y="0" width="284" height="56" rx="14"/>
+          <text class="card-title" x="22" y="35">Brainstorm</text>
+          <rect class="node-blue" x="0" y="72" width="284" height="56" rx="14"/>
+          <text class="card-title" x="22" y="107">Market research</text>
+          <rect class="node-blue" x="0" y="144" width="284" height="56" rx="14"/>
+          <text class="card-title" x="22" y="179">Sprint contract</text>
+          <rect class="node-blue" x="0" y="216" width="284" height="56" rx="14"/>
+          <text class="card-title" x="22" y="251">Test generation</text>
+          <rect class="node-blue" x="0" y="288" width="284" height="56" rx="14"/>
+          <text class="card-title" x="22" y="323">Implementation plan</text>
+        </g>
+      </g>
+
+      <g transform="translate(465 178)">
+        <rect class="artifact" x="0" y="0" width="270" height="456" rx="22"/>
+        <text class="phase-kicker" x="28" y="44">OUTPUT</text>
+        <text class="phase-title" x="28" y="78">Spec artifacts</text>
+        <text class="card-copy" x="28" y="108">Files validators judge against.</text>
+
+        <g transform="translate(28 140)">
+          <rect class="node" x="0" y="0" width="214" height="48" rx="12"/>
+          <text class="card-title" x="20" y="31">requirements.md</text>
+          <rect class="node" x="0" y="64" width="214" height="48" rx="12"/>
+          <text class="card-title" x="20" y="95">design.md</text>
+          <rect class="node" x="0" y="128" width="214" height="48" rx="12"/>
+          <text class="card-title" x="20" y="159">tasks.md</text>
+          <rect class="node" x="0" y="206" width="214" height="48" rx="12"/>
+          <text class="card-title" x="20" y="237">test cases</text>
+          <rect class="node" x="0" y="270" width="214" height="48" rx="12"/>
+          <text class="card-title" x="20" y="301">API contract</text>
+        </g>
+      </g>
+
+      <g transform="translate(780 178)">
+        <rect class="stage build" x="0" y="0" width="340" height="456" rx="22"/>
+        <text class="phase-kicker" x="28" y="44">02</text>
+        <text class="phase-title" x="28" y="78">Build</text>
+        <text class="card-copy" x="28" y="108">Parallel task batches, then hard gates.</text>
+
+        <g transform="translate(28 136)">
+          <rect class="node-green" x="0" y="0" width="88" height="64" rx="14"/>
+          <text class="label" x="21" y="39">Task A</text>
+          <rect class="node-green" x="98" y="0" width="88" height="64" rx="14"/>
+          <text class="label" x="119" y="39">Task B</text>
+          <rect class="node-green" x="196" y="0" width="88" height="64" rx="14"/>
+          <text class="label" x="217" y="39">Task C</text>
+
+          <rect class="node-green" x="0" y="112" width="284" height="62" rx="14"/>
+          <text class="card-title" x="22" y="149">TDD gate</text>
+          <text class="card-copy" x="138" y="149">red, green, refactor</text>
+
+          <rect class="node-green" x="0" y="206" width="284" height="62" rx="14"/>
+          <text class="card-title" x="22" y="243">Test, typecheck, build</text>
+
+          <rect class="node-green" x="0" y="300" width="284" height="62" rx="14"/>
+          <text class="card-title" x="22" y="337">Commit milestone</text>
+        </g>
+      </g>
+
+      <g transform="translate(1165 178)">
+        <rect class="stage validate" x="0" y="0" width="355" height="456" rx="22"/>
+        <text class="phase-kicker" x="28" y="44">03</text>
+        <text class="phase-title" x="28" y="78">Validate</text>
+        <text class="card-copy" x="28" y="108">Independent review agents produce verdicts.</text>
+
+        <g transform="translate(28 136)">
+          <rect class="node-indigo" x="0" y="0" width="136" height="52" rx="13"/>
+          <text class="label" x="35" y="33">Code</text>
+          <rect class="node-indigo" x="164" y="0" width="136" height="52" rx="13"/>
+          <text class="label" x="197" y="33">Security</text>
+          <rect class="node-indigo" x="0" y="68" width="136" height="52" rx="13"/>
+          <text class="label" x="25" y="101">Integration</text>
+          <rect class="node-indigo" x="164" y="68" width="136" height="52" rx="13"/>
+          <text class="label" x="200" y="101">Browser</text>
+          <rect class="node-indigo" x="0" y="136" width="136" height="52" rx="13"/>
+          <text class="label" x="33" y="169">Design</text>
+          <rect class="node-indigo" x="164" y="136" width="136" height="52" rx="13"/>
+          <text class="label" x="196" y="169">Alignment</text>
+
+          <rect class="node-indigo" x="0" y="236" width="300" height="62" rx="14"/>
+          <text class="card-title" x="22" y="273">Aggregate verdict</text>
+
+          <path class="line-blue" d="M150 298 L150 343"/>
+          <path class="node-indigo" d="M150 362 L216 405 L150 448 L84 405 Z"/>
+          <text class="card-title" x="116" y="411">Verdict</text>
+        </g>
+      </g>
+
+      <g transform="translate(390 722)">
+        <rect class="stage recover" x="0" y="0" width="400" height="150" rx="22"/>
+        <text class="phase-kicker" x="28" y="44">FAIL PATH</text>
+        <text class="phase-title" x="28" y="78">Recover</text>
+        <text class="card-copy" x="28" y="110">Surgical fixes, regression test first, max three cycles.</text>
+      </g>
+
+      <g transform="translate(1030 700)">
+        <rect class="ship" x="0" y="0" width="490" height="186" rx="24"/>
+        <text class="phase-kicker" x="30" y="46" fill="#92400e">04</text>
+        <text class="phase-title" x="30" y="82">Ship</text>
+        <text class="card-copy" x="30" y="112">Yellow boundary marks the final release package.</text>
+
+        <g transform="translate(30 130)">
+          <rect class="ship-inner" x="0" y="0" width="126" height="42" rx="12"/>
+          <text class="label" x="36" y="27">PR</text>
+          <rect class="ship-inner" x="146" y="0" width="126" height="42" rx="12"/>
+          <text class="label" x="168" y="27">Changelog</text>
+          <rect class="ship-inner" x="292" y="0" width="138" height="42" rx="12"/>
+          <text class="label" x="334" y="27">Archive</text>
+        </g>
+      </g>
+
+      <path class="line" d="M420 406 L465 406"/>
+      <path class="line" d="M735 406 L780 406"/>
+      <path class="line" d="M1120 406 L1165 406"/>
+      <path class="line-amber" d="M1315 626 C1315 666 1268 680 1268 700"/>
+      <path class="loop" d="M1260 626 C1138 710 933 780 790 797"/>
+      <path class="loop" d="M590 722 C613 682 682 652 808 594"/>
+
+      <line class="divider" x1="80" y1="676" x2="1520" y2="676"/>
+      <text class="micro" x="82" y="918">CONTRACT FIRST</text>
+      <text class="micro" x="286" y="918">PARALLEL WHERE SAFE</text>
+      <text class="micro" x="572" y="918">INDEPENDENT VALIDATION</text>
+      <text class="micro" x="920" y="918">RECOVER WITH TESTS</text>
+      <text class="micro" x="1214" y="918">SHIP WHEN GREEN</text>
+    </svg>
+  </main>
+</body>
+</html>
