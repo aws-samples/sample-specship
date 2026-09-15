@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="520" height="416" viewBox="0 0 520 416" role="img" aria-labelledby="title desc">
+  <title id="title">The SpecShip workflow</title>
+  <desc id="desc">Recon for existing code, followed by plan, build, validate, and ship. Validation findings return to build for targeted fixes.</desc>
+  <style>
+    .surface { fill: #f6f8fb; stroke: #dce3ec; }
+    .track { fill: none; stroke: #9cacbd; stroke-width: 2; }
+    .node { fill: #f6f8fb; stroke: #315777; stroke-width: 2.5; }
+    .label { fill: #19354b; font: 600 26px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+    .note { fill: #52677b; font: 20px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+    .recovery { fill: none; stroke: #a55f00; stroke-width: 2; }
+    .recovery-label { fill: #895000; font: 18px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+    .arrow { fill: #9cacbd; }
+    .recovery-arrow { fill: #a55f00; }
+    .done { fill: #315777; }
+    .tick { fill: none; stroke: #fff; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    @media (prefers-color-scheme: dark) {
+      .surface { fill: #172a3a; stroke: #344d62; }
+      .track { stroke: #748ca0; }
+      .node { fill: #172a3a; stroke: #bdd4e6; }
+      .label { fill: #edf3f8; }
+      .note { fill: #b6c8d6; }
+      .recovery { stroke: #ffb454; }
+      .recovery-label { fill: #ffb454; }
+      .arrow { fill: #748ca0; }
+      .recovery-arrow { fill: #ffb454; }
+      .done { fill: #bdd4e6; }
+      .tick { stroke: #172a3a; }
+    }
+  </style>
+  <rect class="surface" x="1" y="1" width="518" height="414" rx="14"/>
+  <path class="track" stroke-dasharray="5 6" d="M44 64v51"/>
+  <path class="track" d="M44 140v49m0 27v49m0 27v49"/>
+  <path class="arrow" d="m40 110 4 7 4-7zm0 76 4 7 4-7zm0 76 4 7 4-7zm0 76 4 7 4-7z"/>
+  <circle class="node" cx="44" cy="52" r="10"/>
+  <circle class="node" cx="44" cy="128" r="10"/>
+  <circle class="node" cx="44" cy="204" r="10"/>
+  <circle class="node" cx="44" cy="280" r="10"/>
+  <circle class="done" cx="44" cy="356" r="12"/>
+  <path class="tick" d="m39 356 3.5 3.5 6.5-7"/>
+  <text class="label" x="78" y="56">Recon</text>
+  <text class="note" x="78" y="80">Existing code only</text>
+  <text class="label" x="78" y="132">Plan</text>
+  <text class="note" x="78" y="156">Define done</text>
+  <text class="label" x="78" y="208">Build</text>
+  <text class="note" x="78" y="232">Implement + test</text>
+  <text class="label" x="78" y="284">Validate</text>
+  <text class="note" x="78" y="308">Independent review</text>
+  <text class="label" x="78" y="360">Ship</text>
+  <text class="note" x="78" y="384">Prepare the PR</text>
+  <path class="recovery" d="M320 280h86q14 0 14-14v-48q0-14-14-14h-81"/>
+  <path class="recovery-arrow" d="m329 200-7 4 7 4z"/>
+  <text class="recovery-label" x="455" y="242" text-anchor="middle" transform="rotate(-90 455 242)">Targeted fixes</text>
+</svg>
